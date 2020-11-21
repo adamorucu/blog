@@ -97,7 +97,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      5 min read
+      10 min read
     
 </span></p>
 
@@ -152,7 +152,7 @@ window.onload = wrap_img;
 <p>Following the principle:</p>
 <blockquote><p>The best way to learn is by doing.</p>
 </blockquote>
-<p>In this post we will learn how linear regression works and implement it at the same time. This is the first post of a series so if you end up learning something usefull don't stop and continue with the next ones.</p>
+<p>In this post we will learn how linear regression works and implement it at the same time. This is the first post of a series so if you end up learning something usefull don't stop and continue with the next ones. The whole post is a <em>Jupyter Notebook</em> and was created using <code>Fast Pages</code> so if you'd like to replicate the steps you can do so by using the above links for several different methods.</p>
 
 </div>
 </div>
@@ -205,7 +205,7 @@ window.onload = wrap_img;
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="About-the-data">About the data<a class="anchor-link" href="#About-the-data"> </a></h2><p>Data that we will be using is the <a href="https://www.cs.toronto.edu/~delve/data/boston/bostonDetail.html">Boston Housing Dataset</a>. This data represents few attributes about some housing options in Boston.</p>
+<h2 id="About-the-data">About the data<a class="anchor-link" href="#About-the-data"> </a></h2><p>Data that we will be using to train and test the model is the <a href="https://www.cs.toronto.edu/~delve/data/boston/bostonDetail.html">Boston Housing Dataset</a>. This dataset contains information on housing in the city of Boston and we will use it to try to predict value of some owner-occupied homes.</p>
 
 </div>
 </div>
@@ -234,7 +234,7 @@ window.onload = wrap_img;
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The data can be viewed below. Here every column represents an attribute of the data, like age, crime, or patio-ratio. Although for this project only one attribute will be use to ease the visualisation - namely age of the property.</p>
+<p>The data can be viewed below. Here every column represents an attribute of the data, like age, crime, or patio-ratio. Although for this project only one attribute will be uses to ease the visualisation - namely <strong>age</strong> of the property.</p>
 
 </div>
 </div>
@@ -398,7 +398,7 @@ window.onload = wrap_img;
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Our-Goal">Our Goal<a class="anchor-link" href="#Our-Goal"> </a></h2><p>The goal of the exercise is to</p>
+<h2 id="Our-Goal">Our Goal<a class="anchor-link" href="#Our-Goal"> </a></h2><p>As stated our goal is to predict values of given houses to be as close to the real value as possible. Below an example can be viewed, which was created using scikit-learn the table presents predicted and true values for 5 housing units. We will be creating a similar model on our own.</p>
 
 </div>
 </div>
@@ -483,7 +483,14 @@ window.onload = wrap_img;
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Linear-Regression">Linear Regression<a class="anchor-link" href="#Linear-Regression"> </a></h2><p>Linear regression is the simplest machine learning algorithm to learn. ...</p>
+<h2 id="Let's-Get-to-It">Let's Get to It<a class="anchor-link" href="#Let's-Get-to-It"> </a></h2><p>Although the linear regression model is fairly simple to understand while making predictions, there is some math involved in the process of training the model. So without further ado, let's begin.</p>
+<hr />
+<p>Prediction making in linear regression can be basically stated as drawing a line through the available data so that it represents the data as accurately as possible. We do that ofcourse by creating an equation that represents a line, e.g. $3x + 4 = y$. This equation says that if our input data point is a $2$ the prediction made will be $10$. The input data can of course have more then one attribute for a single data point. In such a case the equation can be written as follows; $\theta_1 * x_1 + \theta_2 * x_2 + \theta_0 = y$. Theta, being the weight of each attribute.</p>
+<p>Since we will not get only one data point but much more, it will be usefull to represent it with a matrix, where each column of $X$ is an attribute, each row a seperate data point that is available to us. Thetas and the output y can represented as two vectors in such a case. This will result in the below equation.
+
+$$X \cdot \theta = y$$
+
+Pretty simple formula right? So, let's code it.</p>
 
 </div>
 </div>
@@ -585,7 +592,14 @@ window.onload = wrap_img;
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>learning afdkadjfljasd dskf jadslfj sd</p>
+<p>Above is the code-snippet that does exactly what we have said so far. Returns an array of predictions by multiplying each row (data point) with theta (weight). You may have realised the two extra lines here. They add to our matrix a column of 1s which are called the intercept they will help us add the $\theta_0$ weight.</p>
+<hr />
+<p>Now since we now how to make predictions once we have our thetas defined let's learn how we actually choose the thetas that best fir our data. We will see how this can be done, using two different methods. Let's start with <strong>gradient descent</strong>. The general idea here is that; we calculate the error our model is making at step by step try to minimize it.</p>
+<p>That said let's define our error (loss) function. Since we try to draw a line so that the distance to the data points is as small as possible, our function will do just that; calculate the average distance to the data points. Instead of getting the absoloute value of the distances we will sqaure it. This is done so the values that are a little off will not affect the model very much, but values that will end up being very far away from the line that we drew increase the error even more.
+
+$$\frac{\sum_{i=0}^n( X_i \cdot \theta - y)}{2n}$$
+
+You probably see an extra 2 in the denominator, it is just to help us in further calculation, you shouldn't worry about it very much.</p>
 
 </div>
 </div>
@@ -669,16 +683,17 @@ window.onload = wrap_img;
 .output_html .vg { color: #19177C } /* Name.Variable.Global */
 .output_html .vi { color: #19177C } /* Name.Variable.Instance */
 .output_html .vm { color: #19177C } /* Name.Variable.Magic */
-.output_html .il { color: #666666 } /* Literal.Number.Integer.Long */</style><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">lamb</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">add_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">iters</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.006</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">add_intercept</span><span class="p">:</span>
-            <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">dtype</span><span class="p">),</span> <span class="n">X</span><span class="p">))</span>
-        <span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">X</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">Theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="c1">#         self.Theta = np.linalg.inv(X.T @ X) @ X.T @ y</span>
-        <span class="n">loss_prime</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">theta</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span> <span class="o">@</span> <span class="n">theta</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">x</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_gradient_descent</span><span class="p">(</span><span class="n">iters</span><span class="o">=</span><span class="n">iters</span><span class="p">,</span> <span class="n">loss_prime</span><span class="o">=</span><span class="n">loss_prime</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">)</span>
+.output_html .il { color: #666666 } /* Literal.Number.Integer.Long */</style><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">lamb</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">add_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">iters</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Fits the training data using gradient descent&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">add_intercept</span><span class="p">:</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">dtype</span><span class="p">),</span> <span class="n">X</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">X</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">Theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">loss_prime</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">theta</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span> <span class="o">@</span> <span class="n">theta</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">x</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">theta</span><span class="p">:</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">X</span> <span class="o">@</span> <span class="n">theta</span> <span class="o">-</span> <span class="n">y</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_gradient_descent</span><span class="p">(</span><span class="n">iters</span><span class="o">=</span><span class="n">iters</span><span class="p">,</span> <span class="n">loss_prime</span><span class="o">=</span><span class="n">loss_prime</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -693,7 +708,11 @@ window.onload = wrap_img;
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Gradient-Descent">Gradient Descent<a class="anchor-link" href="#Gradient-Descent"> </a></h3><p>Greasdasdf asdf asdf asdf</p>
+<p>Since we now our loss function we can move on to the gradient descent. Since we try to minimize the value of the loss function, we can understand what values of thetas make it smaller by calculating the derivate of the loss function we just defined. We is the following:
+
+$$(X \cdot \theta - y)' \cdot X$$
+
+We can move towards a smaller error by substracting this derivative from the theta that we used to calculate it. And that's the gradient descent algorithm. One addition is that instead of just substracting the derivative we first multiply it by a small number (learning rate) so we don't take too big steps and just little by little go to the right direction.</p>
 
 </div>
 </div>
@@ -798,52 +817,11 @@ window.onload = wrap_img;
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>If you'd like to see the entire object you see it by clicking the button below.</p>
+<p>That was all! If you'd like to see what we ended up with click the button below. Now we will move on to testing our model.</p>
 
 </div>
 </div>
 </div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<details class="description">
-      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">LinearRegression</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">loss</span> <span class="o">=</span> <span class="p">[]</span>
-    
-    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">iters</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">3e-4</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">m</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="s1">&#39;weights&#39;</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">weights</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">gradient_descent</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">iters</span><span class="p">,</span> <span class="n">lr</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">)</span>
-    
-    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
-        <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">X</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">dtype</span><span class="p">)))</span>
-        <span class="k">return</span> <span class="n">X</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">)</span>
-    
-    <span class="k">def</span> <span class="nf">gradient_descent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">iters</span><span class="p">,</span> <span class="n">lr</span><span class="p">):</span>
-        <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">X</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">dtype</span><span class="p">)))</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">),</span><span class="mi">1</span><span class="p">))</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iters</span><span class="p">):</span>
-            <span class="n">gradient</span> <span class="o">=</span> <span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">)</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">weights</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weights</span> <span class="o">-</span> <span class="p">(</span><span class="n">lr</span> <span class="o">*</span> <span class="mi">1</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">m</span> <span class="o">*</span> <span class="n">gradient</span><span class="o">.</span><span class="n">transpose</span><span class="p">())</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">loss</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">)</span> <span class="o">-</span> <span class="n">y</span><span class="p">)))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-</p>
-    </details>
-</div>
-    
-
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -895,7 +873,8 @@ window.onload = wrap_img;
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Results">Results<a class="anchor-link" href="#Results"> </a></h4>
+<h4 id="Results">Results<a class="anchor-link" href="#Results"> </a></h4><p>You may have realised that we preset values for learning-rate and the number of iterations for gradient descent they are set to values that work, but I would encourage to play around with them. Anyways if we run our model with those parameters here are the values that we obtain. Maybe not as good as the once obtained by scikit-learn but there still seems to have the correct correlation.</p>
+
 </div>
 </div>
 </div>
@@ -910,7 +889,7 @@ window.onload = wrap_img;
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">LinReg</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
 <span class="n">LinReg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">LinReg</span><span class="o">.</span><span class="n">Theta</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Thetas we ended up with:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">LinReg</span><span class="o">.</span><span class="n">Theta</span><span class="p">)</span>
 <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">[</span><span class="n">LinReg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">y_test</span><span class="p">[:</span><span class="mi">5</span><span class="p">]],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Prediction&#39;</span><span class="p">,</span> <span class="s1">&#39;True&#39;</span><span class="p">])</span>
 </pre></div>
 
@@ -925,8 +904,9 @@ window.onload = wrap_img;
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[[0.91389979]
- [0.35377957]]
+<pre>Thetas we ended up with:
+ [[31.32592649]
+ [-0.12119402]]
 </pre>
 </div>
 </div>
@@ -963,18 +943,18 @@ window.onload = wrap_img;
   <tbody>
     <tr>
       <th>Prediction</th>
-      <td>30.666762</td>
-      <td>12.553248</td>
-      <td>35.867321</td>
-      <td>3.67338</td>
-      <td>33.390864</td>
+      <td>21.133509</td>
+      <td>27.338643</td>
+      <td>19.351957</td>
+      <td>30.380613</td>
+      <td>20.200315</td>
     </tr>
     <tr>
       <th>True</th>
       <td>23.600000</td>
       <td>32.400000</td>
       <td>13.600000</td>
-      <td>22.80000</td>
+      <td>22.800000</td>
       <td>16.100000</td>
     </tr>
   </tbody>
@@ -992,47 +972,8 @@ window.onload = wrap_img;
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Learning">Learning<a class="anchor-link" href="#Learning"> </a></h4>
-</div>
-</div>
-</div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<h5 id="Comparison">Comparison<a class="anchor-link" href="#Comparison"> </a></h5><p>Our error (mean squared error) compared to scikit-learn's.</p>
 
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">LinReg</span><span class="o">.</span><span class="n">loss</span><span class="p">);</span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
-" />
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h5 id="Comparison">Comparison<a class="anchor-link" href="#Comparison"> </a></h5>
 </div>
 </div>
 </div>
@@ -1073,6 +1014,54 @@ Sklearns:  64.45241584915276
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Learning">Learning<a class="anchor-link" href="#Learning"> </a></h4><p>But the most interesting part is to see how our algorithm learns. Below you can see how our error got smaller with every iteration of the gradient descent algortihm.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">LinReg</span><span class="o">.</span><span class="n">loss</span><span class="p">);</span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+" />
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And here is the visualisation of the result we obtained and comparison to the result using sklearn.</p>
+
+</div>
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -1146,7 +1135,7 @@ Sklearns:  64.45241584915276
 <span class="n">sk</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">sk</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">),</span> <span class="s1">&#39;m-&#39;</span><span class="p">)</span>
-<span class="n">line</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">X_test</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">X_test</span><span class="o">.</span><span class="n">dtype</span><span class="p">)))</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">LinReg2</span><span class="o">.</span><span class="n">weights</span><span class="p">),</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">line</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">X_test</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">X_test</span><span class="o">.</span><span class="n">dtype</span><span class="p">)))</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">LinReg2</span><span class="o">.</span><span class="n">Theta</span><span class="p">),</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">((</span><span class="s1">&#39;Sklearns&#39;</span><span class="p">,</span> <span class="s1">&#39;Our&#39;</span><span class="p">))</span>
 
 <span class="n">Writer</span> <span class="o">=</span> <span class="n">animation</span><span class="o">.</span><span class="n">writers</span><span class="p">[</span><span class="s1">&#39;pillow&#39;</span><span class="p">]</span>
@@ -1182,6 +1171,17 @@ Sklearns:  64.45241584915276
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now, I had said that we will see two algorithm to find values for theta. The first one was gradient descent. The second is called the normal equation. This equation is possible because linear regression is a quite simple idea, so smart people have found a formula that makes the learning process unnecessary and just gives you the correct answer. If you interested in the proof; do go online, I will not do it here. Anyways, here is the equation:
+
+$$(X' \cdot X)^{-1} \cdot X' \cdot y$$
+
+Obviously this equation will not work for every situation. Since you need to invert a matrix you may end up with matricees of data where it is not possible to do so.</p>
+
+</div>
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -1189,7 +1189,8 @@ Sklearns:  64.45241584915276
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Code</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">C</span>
+<span class="n">ode</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;</span>
 <span class="s1">def fit(self, X, y, lamb=0, add_intercept=True, iters=100, lr=3e-8):</span>
 <span class="s1">    &quot;&quot;&quot;Fits the training data using normal equation&quot;&quot;&quot;</span>
 <span class="s1">    if add_intercept:</span>
@@ -1300,6 +1301,13 @@ Sklearns:  64.45241584915276
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As you can see using this equation we ended up with the same error, so with the same theta (weight) that scikit-learn has found.</p>
+
+</div>
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -1339,7 +1347,7 @@ Sklearns:  64.45241584915276
                 
 <span class="n">LinReg</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
 <span class="n">LinReg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">LinReg</span><span class="o">.</span><span class="n">Theta</span><span class="p">)</span>
+
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Our: &#39;</span><span class="p">,</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">LinReg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">),</span> <span class="n">y_test</span><span class="p">),</span>
       <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Sklearns: &#39;</span><span class="p">,</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">),</span> <span class="n">y_test</span><span class="p">))</span>
@@ -1356,9 +1364,7 @@ Sklearns:  64.45241584915276
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[[31.32592649]
- [-0.12119402]]
-Our:  64.45241584915267 
+<pre>Our:  64.45241584915267 
 Sklearns:  64.45241584915276
 </pre>
 </div>
