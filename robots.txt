@@ -1,1 +1,1 @@
-Sitemap: https://posterrieri.github.io/blog/sitemap.xml
+Sitemap: https://adamorucu.github.io/blog/sitemap.xml

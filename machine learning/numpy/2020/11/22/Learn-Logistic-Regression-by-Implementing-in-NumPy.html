@@ -11,16 +11,16 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Explaination of linear regression by implementing it in Python NumPy." />
 <meta property="og:description" content="Explaination of linear regression by implementing it in Python NumPy." />
-<link rel="canonical" href="https://posterrieri.github.io/blog/machine%20learning/numpy/2020/11/22/Learn-Logistic-Regression-by-Implementing-in-NumPy.html" />
-<meta property="og:url" content="https://posterrieri.github.io/blog/machine%20learning/numpy/2020/11/22/Learn-Logistic-Regression-by-Implementing-in-NumPy.html" />
+<link rel="canonical" href="https://adamorucu.github.io/blog/machine%20learning/numpy/2020/11/22/Learn-Logistic-Regression-by-Implementing-in-NumPy.html" />
+<meta property="og:url" content="https://adamorucu.github.io/blog/machine%20learning/numpy/2020/11/22/Learn-Logistic-Regression-by-Implementing-in-NumPy.html" />
 <meta property="og:site_name" content="Adam’s Blog" />
-<meta property="og:image" content="https://posterrieri.github.io/blog/images/cover/linear-regression.png" />
+<meta property="og:image" content="https://adamorucu.github.io/blog/images/cover/logistic-regression.png" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-11-22T00:00:00-06:00" />
 <script type="application/ld+json">
-{"description":"Explaination of linear regression by implementing it in Python NumPy.","url":"https://posterrieri.github.io/blog/machine%20learning/numpy/2020/11/22/Learn-Logistic-Regression-by-Implementing-in-NumPy.html","@type":"BlogPosting","headline":"Learn Logistic Regression by Implementing in NumPy","dateModified":"2020-11-22T00:00:00-06:00","datePublished":"2020-11-22T00:00:00-06:00","author":{"@type":"Person","name":"Adam Orucu"},"image":"https://posterrieri.github.io/blog/images/cover/linear-regression.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://posterrieri.github.io/blog/machine%20learning/numpy/2020/11/22/Learn-Logistic-Regression-by-Implementing-in-NumPy.html"},"@context":"https://schema.org"}</script>
+{"description":"Explaination of linear regression by implementing it in Python NumPy.","url":"https://adamorucu.github.io/blog/machine%20learning/numpy/2020/11/22/Learn-Logistic-Regression-by-Implementing-in-NumPy.html","@type":"BlogPosting","headline":"Learn Logistic Regression by Implementing in NumPy","dateModified":"2020-11-22T00:00:00-06:00","datePublished":"2020-11-22T00:00:00-06:00","author":{"@type":"Person","name":"Adam Orucu"},"image":"https://adamorucu.github.io/blog/images/cover/logistic-regression.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://adamorucu.github.io/blog/machine%20learning/numpy/2020/11/22/Learn-Logistic-Regression-by-Implementing-in-NumPy.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://posterrieri.github.io/blog/feed.xml" title="Adam's Blog" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://adamorucu.github.io/blog/feed.xml" title="Adam's Blog" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
@@ -118,19 +118,19 @@ window.onload = wrap_img;
         <div class="pb-5 d-flex flex-wrap flex-justify-end">
           <div class="px-2">
 
-    <a href="https://github.com/posterrieri/blog/tree/master/_notebooks/2020-11-22-Learn-Logistic-Regression-by-Implementing-in-NumPy.ipynb" role="button" target="_blank">
+    <a href="https://github.com/adamorucu/blog/tree/master/_notebooks/2020-11-22-Learn-Logistic-Regression-by-Implementing-in-NumPy.ipynb" role="button" target="_blank">
 <img class="notebook-badge-image" src="/blog/assets/badges/github.svg" alt="View On GitHub">
     </a>
 </div>
 
           <div class="px-2">
-    <a href="https://mybinder.org/v2/gh/posterrieri/blog/master?filepath=_notebooks%2F2020-11-22-Learn-Logistic-Regression-by-Implementing-in-NumPy.ipynb" target="_blank">
+    <a href="https://mybinder.org/v2/gh/adamorucu/blog/master?filepath=_notebooks%2F2020-11-22-Learn-Logistic-Regression-by-Implementing-in-NumPy.ipynb" target="_blank">
         <img class="notebook-badge-image" src="/blog/assets/badges/binder.svg" alt="Open In Binder"/>
     </a>
 </div>
 
           <div class="px-2">
-    <a href="https://colab.research.google.com/github/posterrieri/blog/blob/master/_notebooks/2020-11-22-Learn-Logistic-Regression-by-Implementing-in-NumPy.ipynb" target="_blank">
+    <a href="https://colab.research.google.com/github/adamorucu/blog/blob/master/_notebooks/2020-11-22-Learn-Logistic-Regression-by-Implementing-in-NumPy.ipynb" target="_blank">
         <img class="notebook-badge-image" src="/blog/assets/badges/colab.svg" alt="Open In Colab"/>
     </a>
 </div>
@@ -180,7 +180,7 @@ window.onload = wrap_img;
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In the second post in this series we will learn how a logistic regression classfier works and implement it in NumPy. This time we will use the Penguin type dataset</p>
+<p>In the second post in this series we will learn how a logistic regression classfier works and implement it in NumPy. This time we will use the Penguin type dataset, where we will try guess one of two penguin species from some of their attributes.</p>
 
 </div>
 </div>
@@ -346,6 +346,13 @@ window.onload = wrap_img;
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Important change that we have to make is to encode the names of species as integers for our model to work. We will change <em>Adelie</em> to $-1$ and <em>Gentoo</em> to $1$. You will see later why we chose these numbers in particular.</p>
+
+</div>
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -353,7 +360,7 @@ window.onload = wrap_img;
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">peng_df</span><span class="p">[</span><span class="s1">&#39;species&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">peng_df</span><span class="p">[</span><span class="s1">&#39;species&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s1">&#39;Adelie&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Gentoo&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">peng_df</span><span class="p">[</span><span class="s1">&#39;species&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">peng_df</span><span class="p">[</span><span class="s1">&#39;species&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s1">&#39;Adelie&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Gentoo&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
 <span class="n">peng_df</span>
 </pre></div>
 
@@ -496,6 +503,12 @@ window.onload = wrap_img;
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Logistic-Regression">Logistic Regression<a class="anchor-link" href="#Logistic-Regression"> </a></h2>
+</div>
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -546,7 +559,7 @@ window.onload = wrap_img;
 
   </div><!-- from https://github.com/utterance/utterances -->
 <script src="https://utteranc.es/client.js"
-        repo="posterrieri/blog"
+        repo="adamorucu/blog"
         issue-term="title"
         label="blogpost-comment"
         theme="github-light"
@@ -575,7 +588,7 @@ window.onload = wrap_img;
       </div>
     </div>
 
-    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/posterrieri" title="posterrieri"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/adamorucu" title="adamorucu"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
 </div>
 
   </div>
